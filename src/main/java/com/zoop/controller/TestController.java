@@ -5,13 +5,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.zoop.entity.UserInfo;
+import com.zoop.service.TestService;
 
 @Controller
 public class TestController {
 
+	@Autowired
+	TestService testService;
+	
 	@RequestMapping(value = "/test.do")
 	@ResponseBody
 	public String test(){
@@ -32,6 +40,13 @@ public class TestController {
 		list.add(m1);
 		list.add(m2);
 		return list;
+	}
+	
+	@RequestMapping(value = "/getUserId.do")
+	@ResponseBody
+	public UserInfo getUserInfoById(@RequestParam(value="id") String id){
+		UserInfo user = (UserInfo)testService.getUserById(id);
+		return user;
 	}
 	
 }

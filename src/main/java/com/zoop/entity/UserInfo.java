@@ -1,16 +1,16 @@
 package com.zoop.entity;
 
-public class User {
+public class UserInfo {
 
 	private String id;
 	
 	private String name;
 	
-	public User(){
+	public UserInfo(){
 		super();
 	}
 	
-	public User(String id, String name){
+	public UserInfo(String id, String name){
 		this.id = id;
 		this.name = name;
 	}

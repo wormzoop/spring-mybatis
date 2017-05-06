@@ -1,2 +1,2 @@
-spring4之后 使用MappingJackson2HttpMessageConverter
-json使用2.6.3以后版本
+锘縮pring4涔嬪悗 浣跨敤MappingJackson2HttpMessageConverter
+json浣跨敤2.6.3浠ュ悗鐗堟湰

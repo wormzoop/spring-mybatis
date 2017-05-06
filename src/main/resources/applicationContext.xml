@@ -11,17 +11,16 @@
             http://www.springframework.org/schema/mvc    
     		http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
     
+    <bean id="propertyConfigurer"    
+        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">    
+        <property name="location" value="classpath:jdbc.properties" />    
+    </bean>
+    
     <!-- 扫描的包 -->        
     <context:component-scan base-package="com.zoop.controller"/>       
     
     <mvc:annotation-driven />
             
-	<bean id="testService" class="com.zoop.service.TestService"></bean>
-	    
-	<bean id="user" class="com.zoop.entity.User">
-		<property name="name" value="jian"></property>
-	</bean>
-
 	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">      
         <property name="messageConverters">      
             <list >      
@@ -37,5 +36,28 @@
 	       </list>    
 	    </property>
 	</bean> 
+
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass" value="${driver}"></property>
+		<property name="jdbcUrl" value="${url}"></property>
+		<property name="user" value="${user}"></property>
+		<property name="password" value="${password}"></property>
+	</bean>
+
+	<bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="mapperLocations" value="classpath:com/zoop/mapper/*.xml"></property>
+	</bean>
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.zoop.dao"></property>
+		<property name="sqlSessionFactoryBeanName" value="sessionFactory"></property>
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>	
+	</bean>
+
+	<bean id="testService" class="com.zoop.service.impl.TestServiceImpl"></bean>
 
 </beans>            
