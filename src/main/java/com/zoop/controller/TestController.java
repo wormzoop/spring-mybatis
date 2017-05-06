@@ -49,4 +49,10 @@ public class TestController {
 		return user;
 	}
 	
+	@RequestMapping(value = "/getUserList.do")
+	@ResponseBody
+	public List<UserInfo> getUserList(){
+		return testService.geUserlist();
+	}
+	
 }

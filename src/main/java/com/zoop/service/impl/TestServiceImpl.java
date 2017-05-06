@@ -1,5 +1,7 @@
 package com.zoop.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import com.zoop.dao.UserInfoDao;
@@ -15,4 +17,8 @@ public class TestServiceImpl implements TestService{
 		return userInfoDao.getUserById(id);
 	}
 
+	public List<UserInfo> geUserlist() {
+		return userInfoDao.userList();
+	}
+	
 }
