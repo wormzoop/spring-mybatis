@@ -15,4 +15,9 @@
 		select * from user_info
 	</select>
 	
+	<!--新增用户-->
+	<insert id="addUser" parameterType="com.zoop.entity.UserInfo">
+		insert into user_info(id, name) values (#{id},#{name})
+	</insert>
+	
 </mapper>

@@ -20,5 +20,9 @@ public class TestServiceImpl implements TestService{
 	public List<UserInfo> geUserlist() {
 		return userInfoDao.userList();
 	}
+
+	public void addUser(UserInfo user) {
+		userInfoDao.addUser(user);
+	}
 	
 }

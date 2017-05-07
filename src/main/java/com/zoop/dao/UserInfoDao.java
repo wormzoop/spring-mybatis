@@ -13,4 +13,6 @@ public interface UserInfoDao {
 	
 	UserInfo getUserById(String id);
 	
+	void addUser(UserInfo user);
+	
 }

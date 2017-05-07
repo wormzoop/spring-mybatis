@@ -10,4 +10,5 @@ public interface TestService {
 	
 	List<UserInfo> geUserlist();
 	
+	void addUser(UserInfo user);
 }

@@ -55,4 +55,17 @@ public class TestController {
 		return testService.geUserlist();
 	}
 	
+	@RequestMapping(value = "/insertUser.do")
+	@ResponseBody
+	public String insertUser(){
+		UserInfo user = new UserInfo("111","111name");
+		try{
+			testService.addUser(user);
+			return "SUCCESS";
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return "ERROR";
+	}
+	
 }
