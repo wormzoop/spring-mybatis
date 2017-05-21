@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,8 @@ import com.zoop.service.TestService;
 @Controller
 public class TestController {
 
+	private static Logger logger = Logger.getLogger(TestController.class);
+	
 	@Autowired
 	TestService testService;
 	
@@ -24,6 +27,8 @@ public class TestController {
 	@ResponseBody
 	public String test(){
 		System.out.println("---------------------------------jianjian");
+		logger.info("/test.do");
+		logger.error("test_error");
 		return "jian";
 	}
 	
