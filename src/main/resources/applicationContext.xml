@@ -5,6 +5,7 @@
     xmlns:mvc="http://www.springframework.org/schema/mvc"
     xmlns:aop="http://www.springframework.org/schema/aop"  
     xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:jaxws="http://cxf.apache.org/jaxws"
     xsi:schemaLocation="
     		http://www.springframework.org/schema/beans   
             http://www.springframework.org/schema/beans/spring-beans-4.3.xsd   
@@ -15,7 +16,9 @@
     		http://www.springframework.org/schema/tx  
 	        http://www.springframework.org/schema/tx/spring-tx-4.3.xsd  
 	        http://www.springframework.org/schema/aop   
-	        http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+	        http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+	        http://cxf.apache.org/jaxws 
+	        http://cxf.apache.org/schemas/jaxws.xsd">
     
     <bean id="propertyConfigurer"    
         class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">    
@@ -88,5 +91,14 @@
 		<property name="maxUploadSize" value="10485760000"></property>
 		<property name="maxInMemorySize" value="40960"></property>
 	</bean>
+	
+	<import resource="classpath:META-INF/cxf/cxf.xml" />    
+    <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+	
+	<jaxws:endpoint id="cxfDemo" implementor="com.zoop.webservice.impl.CXFDemoImpl" address="/cxfDemo">
+		<jaxws:properties>  
+            <entry key="schema-validate-enabled" value="true"/>  
+        </jaxws:properties>
+	</jaxws:endpoint>
 	
 </beans>            
