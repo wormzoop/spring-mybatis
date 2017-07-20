@@ -11,4 +11,15 @@ public interface TestService {
 	List<UserInfo> geUserlist();
 	
 	void addUser(UserInfo user);
+	
+	/*
+	 * vue用户注册
+	 */
+	void register(UserInfo user);
+	
+	/*
+	 * vue登录验证
+	 */
+	Integer login(UserInfo user);
+	
 }

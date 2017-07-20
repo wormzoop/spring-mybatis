@@ -8,16 +8,25 @@
 	</resultMap>
 
 	<select id="getUserById" parameterType="string" resultType="com.zoop.entity.UserInfo">
-		select * from user_info where id = #{id}
+		select * from user_11 where id = #{id}
 	</select>
 	
 	<select id="userList" resultMap="userMap">
-		select * from user_info
+		select * from user_11
 	</select>
 	
 	<!--新增用户-->
 	<insert id="addUser" parameterType="com.zoop.entity.UserInfo">
-		insert into user_info(id, name) values (#{id},#{name})
+		insert into user_11(id, name) values (#{id},#{name})
 	</insert>
+	
+	<!--vue用户注册-->
+	<insert id="register" parameterType="com.zoop.entity.UserInfo">
+		insert into user_11(id, name, password) values (#{id},#{name},#{password})
+	</insert>
+	
+	<select id="login" parameterType="com.zoop.entity.UserInfo" resultType="int">
+		select count(*) from user_11 where name = #{name} and password = #{password}
+	</select>
 	
 </mapper>

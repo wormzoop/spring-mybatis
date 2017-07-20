@@ -63,7 +63,7 @@ public class TestController {
 	@RequestMapping(value = "/insertUser.do")
 	@ResponseBody
 	public String insertUser(){
-		UserInfo user = new UserInfo("111","111name");
+		UserInfo user = new UserInfo("111","111name","jiji");
 		try{
 			testService.addUser(user);
 			return "SUCCESS";

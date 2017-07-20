@@ -15,4 +15,11 @@ public interface UserInfoDao {
 	
 	void addUser(UserInfo user);
 	
+	/*
+	 * vue用户注册
+	 */
+	void register(UserInfo user);
+	
+	Integer login(UserInfo user);
+	
 }
