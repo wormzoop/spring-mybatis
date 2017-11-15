@@ -92,6 +92,12 @@
 		<property name="maxInMemorySize" value="40960"></property>
 	</bean>
 	
+	<bean class="com.zoop.config.SwggerConfig" />
+	
+	<mvc:resources mapping="swagger-ui.html" location="classpath:/META-INF/resources/" />
+	<mvc:resources mapping="/webjars/**"
+		location="classpath:/META-INF/resources/webjars/" />
+	
 	<import resource="classpath:META-INF/cxf/cxf.xml" />    
     <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
 	

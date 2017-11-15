@@ -15,6 +15,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.zoop.entity.UserInfo;
 import com.zoop.service.TestService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+@Api(value = "User控制器")
 @Controller
 public class TestController {
 
@@ -23,6 +27,7 @@ public class TestController {
 	@Autowired
 	TestService testService;
 	
+	@ApiOperation(value = "一个测试API", notes = "第一个测试API")
 	@RequestMapping(value = "/test.do")
 	@ResponseBody
 	public String test(){
@@ -32,6 +37,7 @@ public class TestController {
 		return "jian";
 	}
 	
+	@ApiOperation(value = "一个测试APIlist.do", notes = "list.do 第一个测试API")
 	@RequestMapping(value = "/list.do")
 	@ResponseBody
 	public List<Map<String, Object>> returnList(){
