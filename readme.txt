@@ -3,3 +3,4 @@ json使用2.6.3以后版本
 多文件上传multipartResolver
 cxf发布webservice老版本cxf不支持spring4以上
 log4j效果不好
+swagger springfox 自动生成接口文档
