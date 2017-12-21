@@ -20,54 +20,91 @@
 	        http://cxf.apache.org/jaxws 
 	        http://cxf.apache.org/schemas/jaxws.xsd">
     
-    <bean id="propertyConfigurer"    
+    <!-- <bean id="propertyConfigurer"    
         class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">    
         <property name="location" value="classpath:jdbc.properties" />    
-    </bean>
+    </bean> -->
+    
+    <context:property-placeholder
+        ignore-unresolvable="true" location="classpath*:/*.properties" />
     
     <!-- 扫描的包 -->        
-    <context:component-scan base-package="com.zoop.controller"/>       
+    <context:component-scan base-package="com.zoop.controller"/>
+    <context:component-scan base-package="com.zoop.service"/>
+    <context:component-scan base-package="com.zoop.dao"/>
+    <context:component-scan base-package="com.zoop.daoother"/>       
     
     <mvc:annotation-driven />
-            
-	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">      
-        <property name="messageConverters">      
-            <list >      
-                <ref bean="mappingJacksonHttpMessageConverter" />      
-            </list>      
-        </property>      
-    </bean> 
+     
+    <!-- spring4以后的不用之前那种配置 -->        
+	<mvc:annotation-driven>  
+       <mvc:message-converters register-defaults="true">  
+           <bean  
+               class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">  
+               <property name="objectMapper">  
+                    <bean class="com.zoop.service.JsonMapper">  
+                   </bean>  
+               </property>  
+           </bean>  
+       </mvc:message-converters>  
+   </mvc:annotation-driven>
 
-	<bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">    
-	    <property name="supportedMediaTypes">    
-	        <list>    
-	            <value>application/json;charset=UTF-8</value>
-	       </list>    
-	    </property>
-	</bean> 
-
-	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+	<bean id="dataSource1" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
 		<property name="driverClass" value="${driver}"></property>
 		<property name="jdbcUrl" value="${url}"></property>
 		<property name="user" value="${user}"></property>
 		<property name="password" value="${password}"></property>
 	</bean>
 
-	<bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource"></property>
+    <bean id="dataSource2" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <property name="driverClass" value="${jdbc.driver}"></property>
+        <property name="jdbcUrl" value="${jdbc.url}"></property>
+        <property name="user" value="${jdbc.user}"></property>
+        <property name="password" value="${jdbc.password}"></property>
+    </bean>
+
+	<bean id="sessionFactory1" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource1"></property>
 		<property name="mapperLocations" value="classpath:com/zoop/mapper/*.xml"></property>
 	</bean>
 
+    <bean id="sessionFactory2" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource2"></property>
+        <property name="mapperLocations" value="classpath:com/zoop/other/*.xml"></property>
+    </bean>
+
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.zoop.dao"></property>
-		<property name="sqlSessionFactoryBeanName" value="sessionFactory"></property>
+		<property name="sqlSessionFactoryBeanName" value="sessionFactory1"></property>
 	</bean>
+	
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.zoop.daoother"></property>
+        <property name="sqlSessionFactoryBeanName" value="sessionFactory2"></property>
+    </bean>
 
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource"></property>	
+		<property name="dataSource" ref="dataSource1"></property>	
 	</bean>
 
 	<bean id="testService" class="com.zoop.service.impl.TestServiceImpl"></bean>
+
+    <!--Jedis连接池的相关配置-->
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxTotal" value="${redis.pool.maxActive}"/>
+        <property name="maxIdle" value="${redis.pool.maxIdle}"/>
+        <property name="testOnBorrow" value="true"/>
+        <property name="testOnReturn" value="true"/>
+    </bean>
+
+    <bean id="jedisPool" class="redis.clients.jedis.JedisPool">
+        <constructor-arg name="poolConfig" ref="jedisPoolConfig" />
+        <constructor-arg name="host" value="${redis.host}" />
+        <constructor-arg name="port" value="${redis.port}" type="int" />
+        <constructor-arg name="timeout" value="${redis.timeout}" type="int" />
+        <constructor-arg name="password" value="${redis.password}" />
+        <constructor-arg name="database" value="${redis.database}" type="int" />
+    </bean>
 
 	<!--事务配置的形式-->
 	<tx:advice id="useTxAdvice" transaction-manager="transactionManager">

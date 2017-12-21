@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.zoop.entity.SysRole;
 import com.zoop.entity.UserInfo;
+import com.zoop.service.SysRoleService;
 import com.zoop.service.TestService;
 
 import io.swagger.annotations.Api;
@@ -26,6 +28,9 @@ public class TestController {
 	
 	@Autowired
 	TestService testService;
+	
+	@Autowired
+	SysRoleService sysRoleService;
 	
 	@ApiOperation(value = "一个测试API", notes = "第一个测试API")
 	@RequestMapping(value = "/test.do")
@@ -77,6 +82,12 @@ public class TestController {
 			e.printStackTrace();
 		}
 		return "ERROR";
+	}
+	
+	@RequestMapping(value = "/list2.do")
+	@ResponseBody
+	public List<SysRole> list2(){
+		return sysRoleService.list();
 	}
 	
 }

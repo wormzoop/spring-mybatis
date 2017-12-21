@@ -82,9 +82,8 @@
 	<dependency>
 	    <groupId>commons-net</groupId>
 	    <artifactId>commons-net</artifactId>
-	    <version>3.6</version>
+	    <version>1.4.1</version>
 	</dependency>
-    
     
     <dependency>
         <groupId>commons-logging</groupId>
@@ -146,6 +145,14 @@
         <type>pom</type>
   	</dependency> -->
   	
+  	<dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.12</version>
+        <!-- 表示开发的时候引入，发布的时候不会加载此包 -->
+        <scope>test</scope>
+    </dependency>
+  	
   	<dependency>  
 	    <groupId>org.apache.cxf</groupId>  
 	    <artifactId>cxf-rt-frontend-jaxws</artifactId>  
@@ -163,6 +170,19 @@
 	    <version>1.2.17</version>
 	</dependency>
     
+	<dependency>
+	    <groupId>dom4j</groupId>
+	    <artifactId>dom4j</artifactId>
+	    <version>1.6.1</version>
+	</dependency>
+    
+    <!-- jedis -->
+    <dependency>
+        <groupId>redis.clients</groupId>
+        <artifactId>jedis</artifactId>
+        <version>2.9.0</version>
+    </dependency>
+    
     <!-- 生成接口文档 -->
     <dependency>
         <groupId>io.springfox</groupId>
@@ -174,6 +194,54 @@
         <artifactId>springfox-swagger-ui</artifactId>
         <version>2.5.0</version>
     </dependency>
+    
+    <!-- 转pdf -->
+	<dependency>
+	    <groupId>com.lowagie</groupId>
+	    <artifactId>itext</artifactId>
+	    <version>2.1.7</version>
+	</dependency>
+    
+	<dependency>
+	    <groupId>org.xhtmlrenderer</groupId>
+	    <artifactId>core-renderer</artifactId>
+	    <version>R8pre2</version>
+	</dependency>
+    
+	<dependency>
+	    <groupId>com.itextpdf</groupId>
+	    <artifactId>itext-asian</artifactId>
+	    <version>5.2.0</version>
+	</dependency>
+    
+	<dependency>
+	    <groupId>com.itextpdf</groupId>
+	    <artifactId>itext-asian</artifactId>
+	    <version>5.2.0</version>
+	</dependency>
+
+	<dependency>
+	    <groupId>org.jsoup</groupId>
+	    <artifactId>jsoup</artifactId>
+	    <version>1.8.1</version>
+	</dependency>
+    
+    <dependency>  
+        <groupId>org.apache.poi</groupId>  
+        <artifactId>poi</artifactId>  
+        <version>3.9</version>  
+    </dependency>  
+    <dependency>  
+        <groupId>org.apache.poi</groupId>  
+        <artifactId>poi-ooxml</artifactId>  
+        <version>3.9</version>  
+    </dependency>
+    <dependency>  
+        <groupId>com.artofsolving</groupId>  
+        <artifactId>jodconverter</artifactId>  
+        <version>2.2.1</version>  
+    </dependency>
+    
   </dependencies>
 
 	<build>
